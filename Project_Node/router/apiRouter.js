@@ -130,15 +130,20 @@ router.post("/login", async (req, res) => {
 router.post('/updatepass',async(req,res)=>{
   try{
     console.log(req.body)
-    const { user_id, password } = req.body;
-    const data=await UserModel.findOne({_id:user_id})
+    const pass=await bcrypt.hash(req.body.password,10);
+    console.log("++++++++++++",pass)
+    
+    const data=await UserModel.findOne({_id:req.body.user_id})
+    console.log('===',data);
     if(data){
-        const newPassword=await bcrypt.compare(password)
-        const userData= await UserModel.findByIdAndUpdate({_id:user_id},{
+       
+        const userData= await UserModel.updateOne({_id:req.body.user_id},{
           $set:{
-            password:newPassword
+            password:pass
           }
+        
         })
+        console.log("/////",userData);
         return res.status(200).json({
           status:200,
           message:"password updated successfully"
@@ -151,6 +156,7 @@ router.post('/updatepass',async(req,res)=>{
     }
   }
   catch(error){
+    console.log(error);
     return res.status(500).json({
       status:500,
       message:"error"

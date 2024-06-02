@@ -49,16 +49,7 @@ userSchema.pre("save",async function(next){
      next();
  })
 
-//hash password
-// const hashPassword = async (password) => {
-//     try {
-//       const saltPassword = 10;
-//       const hashPassword = await bcrypt.hash(password, saltPassword);
-//       return hashPassword;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+
 
 const userModel=mongoose.model('AdminLogin',userSchema);
 module.exports=userModel
