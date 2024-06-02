@@ -158,4 +158,6 @@ router.post('/updatepass',async(req,res)=>{
   }
 })
 
+//forget api
+
 module.exports = router;
